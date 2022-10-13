@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lista de Coches</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let c of cars">
+      <img *ngIf="c.filename" src="http://localhost:8080/images/{{c.filename}}" alt="image" width="100" />
+      <ion-label>
+        <h1 class="text">{{c.brand}}</h1>
+        <p class="text">{{c.model}}</p>
+        <p class="text">{{c.price}}</p>
+      </ion-label>
+      <button class="icon" ion-button clear [routerLink]="['/update/', c.id]">
+        <ion-icon name="create" style="zoom:1.5"></ion-icon>
+      </button>
+
+      <button class="icon" ion-button clear (click)="removeCar(c)">
+        <ion-icon name="trash" style="zoom:1.5"></ion-icon>
+      </button>
+      
+    </ion-item>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addCar()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

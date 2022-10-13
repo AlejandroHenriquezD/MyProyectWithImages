@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Actualizar Coche</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col *ngIf="formulario" size="6">
+        <ion-img class="photo-frame" *ngIf="capturedPhoto" [src]="capturedPhoto" (click)="takePhoto()"></ion-img>
+        <ion-img class="photo-frame" *ngIf="!capturedPhoto && formulario.filename==''" src="../../assets/No-Image-Placeholder.svg"(click)="takePhoto()"></ion-img>
+        <ion-img class="photo-frame" *ngIf="!capturedPhoto && formulario.filename!=''" src="http://localhost:8080/images/{{formulario.filename}}" (click)="takePhoto()"></ion-img>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button color="primary" fill="outline" (click)="takePhoto()">
+          <ion-icon slot="start" name="camera-outline"></ion-icon>
+          Hacer foto
+        </ion-button>
+        <ion-button color="primary" fill="outline" (click)="pickImage()">
+          <ion-icon slot="start" name="image-outline"></ion-icon>
+          Elegir Imagen
+        </ion-button>
+        <ion-button color="danger" fill="outline" (click)="discardImage()">
+          <ion-icon slot="start" name="aperture"></ion-icon>
+          Eliminar imagen
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-list lines="full">
+    <form [formGroup]="updateUserFg" (ngSubmit)="onSubmit()">
+
+      <ion-item lines="full">
+        <ion-label position="floating">Marca</ion-label>
+        <ion-input formControlName="brand" type="text" required></ion-input>
+      </ion-item>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.brand.errors?.required">Hace falta una marca</span>
+      <ion-item lines="full">
+        <ion-label position="floating">Modelo</ion-label>
+        <ion-input formControlName="model" type="text" required></ion-input>
+      </ion-item>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.model.errors?.required">Hace falta un modelo.</span>
+      <ion-item lines="full">
+        <ion-label position="floating">Precio</ion-label>
+        <ion-input formControlName="price" type="text" required></ion-input>
+      </ion-item>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.price.errors?.required">Hace falta un precio.</span>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="primary" expand="block">Actualizar</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+  </ion-list>
+
+</ion-content>
